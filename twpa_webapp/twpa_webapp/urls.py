@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
+import mainapp.views as mainapp
 
 urlpatterns = [
+    path('', mainapp.main, name='main'),
     path('admin/', admin.site.urls),
+    path('dicts/', include('dictapp.urls', namespace='dicts')),
+    path('phrases_conditions/', include('phrase_cond_app.urls', namespace='phrases_conditions')),
 ]
