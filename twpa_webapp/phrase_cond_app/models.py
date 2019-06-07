@@ -22,6 +22,7 @@ class PhraseBlock(models.Model):
     basic_phrase = models.CharField(verbose_name='Базовая фраза', max_length=255, blank=False, null=False)
     phrase_condition = models.ForeignKey(PhrasesCondition, verbose_name='', on_delete=models.CASCADE, related_name='phrase_condition')
     phrases_parts = models.ManyToManyField(DictWithRules, related_name='phrases_parts')
+    phrases_parts_exclude = models.ManyToManyField(DictWithRules, related_name='phrases_parts_exclude')
 
     def __str__(self):
         return "{} IN {}".format(self.basic_phrase, self.phrase_condition)

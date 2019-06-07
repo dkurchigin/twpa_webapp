@@ -31,6 +31,18 @@
                         {% endfor %}
                     </div>
                 </div>
+                <div class="phrases_parts_exclude_block">
+                    <p style="display: inline;">Phrases parts exclude: </p>
+                    <div class="dicts_inline" style="display: inline;">
+                        {% for phrase_part_exclude_key, phrase_part_exclude_value in phrases_parts_exclude_for_block.items %}
+                            {% if phrase_part_exclude_key == object.pk %}
+                                {% for clear_part_ex in phrase_part_exclude_value %}
+                                     <a href="{% url 'dictapp:concrete_rule' clear_part_ex.pk %}">{{ clear_part_ex.name }}</a>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>
