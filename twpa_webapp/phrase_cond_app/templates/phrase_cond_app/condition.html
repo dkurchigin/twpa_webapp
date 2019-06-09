@@ -9,7 +9,6 @@
         {% endblock %}
     </title>
     {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     {% endblock %}
 </head>
@@ -17,11 +16,10 @@
     <div class="condition_tree">
         {% for object in object_list %}
             <div class="block_div">
-                {{ object.pk }}
                 <p>Базовая фраза: "{{ object.basic_phrase }}"</p>
                 <div class="phrases_parts_block">
-                    <p style="display: inline;">Phrases parts: </p>
-                    <div class="dicts_inline" style="display: inline;">
+                    <p>Phrases parts: </p>
+                    <div class="dicts_inline">
                         {% for phrase_part_key, phrase_part_value in phrases_parts_for_block.items %}
                             {% if phrase_part_key == object.pk %}
                                 {% for clear_part in phrase_part_value %}
@@ -32,12 +30,24 @@
                     </div>
                 </div>
                 <div class="phrases_parts_exclude_block">
-                    <p style="display: inline;">Phrases parts exclude: </p>
-                    <div class="dicts_inline" style="display: inline;">
+                    <p>Phrases parts exclude: </p>
+                    <div class="dicts_inline">
                         {% for phrase_part_exclude_key, phrase_part_exclude_value in phrases_parts_exclude_for_block.items %}
                             {% if phrase_part_exclude_key == object.pk %}
                                 {% for clear_part_ex in phrase_part_exclude_value %}
                                      <a href="{% url 'dictapp:concrete_rule' clear_part_ex.pk %}">{{ clear_part_ex.name }}</a>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="phrases_exact_for_block">
+                    <p>Phrases exact: </p>
+                    <div class="dicts_inline">
+                        {% for phrases_exact_key, phrases_exact_value in phrases_exact_for_block.items %}
+                            {% if phrases_exact_key == object.pk %}
+                                {% for clear_part_exact in phrases_exact_value %}
+                                     <a href="{% url 'dictapp:concrete_rule' clear_part_exact.pk %}">{{ clear_part_exact.name }}</a>
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}

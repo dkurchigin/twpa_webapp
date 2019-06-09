@@ -1,0 +1,14 @@
+.block_div {
+    outline: 1px solid #666;
+    margin-bottom: 10px;
+}
+
+.block_div p {
+    display: inline;
+}
+.phrases_parts_block p {
+    display: inline;
+}
+.dicts_inline {
+    display: inline;
+}

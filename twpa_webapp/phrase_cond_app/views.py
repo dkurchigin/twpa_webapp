@@ -42,14 +42,20 @@ class BlocksInCondListView(ListView):
         phrase_blocks = PhraseBlock.objects.filter(phrase_condition=block_name.pk)
         phrases_parts = {}
         phrases_parts_exclude = {}
+        phrases_exact = {}
+
         for block in phrase_blocks:
             print(block.pk)
             parts_block = DictWithRules.objects.filter(phrases_parts=block.pk)
             phrases_parts[block.pk] = parts_block
             parts_exclude_block = DictWithRules.objects.filter(phrases_parts_exclude=block.pk)
             phrases_parts_exclude[block.pk] = parts_exclude_block
+            exact_block = DictWithRules.objects.filter(phrases_exact=block.pk)
+            phrases_exact[block.pk] = exact_block
+
         context['phrases_parts_for_block'] = phrases_parts
         context['phrases_parts_exclude_for_block'] = phrases_parts_exclude
+        context['phrases_exact_for_block'] = phrases_exact
         print(context)
 
         return context
