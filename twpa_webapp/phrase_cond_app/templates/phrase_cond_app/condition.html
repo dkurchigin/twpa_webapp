@@ -13,12 +13,16 @@
     {% endblock %}
 </head>
 <body>
+    <div class="condition_desc">
+        <h1>{{ condition.name }}</h1>
+        <h3>{{ condition.description }}</h3>
+    </div>
     <div class="condition_tree">
         {% for object in object_list %}
             <div class="block_div">
-                <p>Базовая фраза: "{{ object.basic_phrase }}"</p>
+                <p>basic phrase: "{{ object.basic_phrase }}"</p>
                 <div class="phrases_parts_block">
-                    <p>Phrases parts: </p>
+                    <p>phrases parts: </p>
                     <div class="dicts_inline">
                         {% for phrase_part_key, phrase_part_value in phrases_parts_for_block.items %}
                             {% if phrase_part_key == object.pk %}
@@ -30,7 +34,7 @@
                     </div>
                 </div>
                 <div class="phrases_parts_exclude_block">
-                    <p>Phrases parts exclude: </p>
+                    <p>phrases parts exclude: </p>
                     <div class="dicts_inline">
                         {% for phrase_part_exclude_key, phrase_part_exclude_value in phrases_parts_exclude_for_block.items %}
                             {% if phrase_part_exclude_key == object.pk %}
@@ -42,7 +46,7 @@
                     </div>
                 </div>
                 <div class="phrases_exact_for_block">
-                    <p>Phrases exact: </p>
+                    <p>phrases exact: </p>
                     <div class="dicts_inline">
                         {% for phrases_exact_key, phrases_exact_value in phrases_exact_for_block.items %}
                             {% if phrases_exact_key == object.pk %}
@@ -52,6 +56,20 @@
                             {% endif %}
                         {% endfor %}
                     </div>
+                </div>
+                <div class="next_state_for_block">
+                    <p>next state: </p>
+                    <div class="dicts_inline">
+                        {% for next_state_key, next_state_value in next_state_for_block.items %}
+                            {% if next_state_key == object.pk %}
+                                <p>{{ next_state_value }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="block_icons">
+                    <a href="#">изменить</a>
+                    <a href="{% url 'phrase_cond_app:phrase_block_delete' object.pk %}">удалить</a>
                 </div>
             </div>
         {% endfor %}

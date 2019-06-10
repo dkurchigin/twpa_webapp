@@ -22,8 +22,8 @@ class PhraseBlock(models.Model):
     basic_phrase = models.CharField(verbose_name='Базовая фраза', max_length=255, blank=False, null=False)
     phrase_condition = models.ForeignKey(PhrasesCondition, verbose_name='', on_delete=models.CASCADE, related_name='phrase_condition')
     phrases_parts = models.ManyToManyField(DictWithRules, related_name='phrases_parts')
-    phrases_parts_exclude = models.ManyToManyField(DictWithRules, related_name='phrases_parts_exclude')
-    phrases_exact = models.ManyToManyField(DictWithRules, related_name='phrases_exact')
+    phrases_parts_exclude = models.ManyToManyField(DictWithRules, related_name='phrases_parts_exclude', blank=True, null=True)
+    phrases_exact = models.ManyToManyField(DictWithRules, related_name='phrases_exact', blank=True, null=True)
     next_state = models.CharField(max_length=255, blank=True, null=False)
 
     def __str__(self):
