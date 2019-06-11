@@ -10,9 +10,10 @@
 </head>
 <body>
     <div class="phrase_block_delete">
-        Уверены, что хотите удалить {{ object.name }}?
+        Уверены, что хотите удалить блок "{{ object.basic_phrase }}"?
         <form method="post">
             {% csrf_token %}
+            <input type="hidden" name="from_condition" value="{{ object.phrase_condition.pk }}">
             <input class="btn btn-danger" type="submit" value="Удалить">
         </form>
         <button class="btn btn-success">

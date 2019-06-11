@@ -40,7 +40,7 @@ class BlocksInCondListView(ListView):
         next_state = {}
 
         for block in phrase_blocks:
-            print(block.pk)
+            # print(block.pk)
             parts_block = DictWithRules.objects.filter(phrases_parts=block.pk)
             phrases_parts[block.pk] = parts_block
             parts_exclude_block = DictWithRules.objects.filter(phrases_parts_exclude=block.pk)
@@ -53,7 +53,7 @@ class BlocksInCondListView(ListView):
         context['phrases_parts_exclude_for_block'] = phrases_parts_exclude
         context['phrases_exact_for_block'] = phrases_exact
         context['next_state_for_block'] = next_state
-        print(context)
+        # print(context)
 
         return context
 
@@ -62,5 +62,28 @@ class PhraseBlockDeleteView(DeleteView):
     model = PhraseBlock
     template_name = 'phrase_cond_app/phrase_block_delete.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(PhraseBlockDeleteView, self).get_context_data(**kwargs)
+        block_name = context['object'].basic_phrase
+        context['title'] = f'Удалить блок \"{block_name}\"'
+        return context
+
     def get_success_url(self):
-        return reverse_lazy('phrase_cond_app:index')
+        return_to = self.request.POST.get('from_condition')
+        return reverse_lazy('phrase_cond_app:concrete_phrase_cond', kwargs={'pk': return_to})
+
+
+class PhraseBlockUpdateView(UpdateView):
+    model = PhraseBlock
+    template_name = 'phrase_cond_app/phrase_block_update.html'
+    fields = '__all__'
+
+    def get_context_data(self, **kwargs):
+        context = super(PhraseBlockUpdateView, self).get_context_data(**kwargs)
+        block_name = context['object'].basic_phrase
+        context['title'] = f'Редактировать блок \"{block_name}\"'
+        return context
+
+    def get_success_url(self):
+        return_to = self.request.POST.get('from_condition')
+        return reverse_lazy('phrase_cond_app:concrete_phrase_cond', kwargs={'pk': return_to})
