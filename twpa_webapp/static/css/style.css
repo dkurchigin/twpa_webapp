@@ -9,6 +9,12 @@
 .phrases_parts_block p {
     display: inline;
 }
+
+.create_phrase_block {
+    outline: 1px solid #666;
+    margin-bottom: 10px;
+}
+
 .dicts_inline {
     display: inline;
 }

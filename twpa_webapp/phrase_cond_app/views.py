@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import PhrasesCondition, PhraseBlock
@@ -83,6 +83,28 @@ class PhraseBlockUpdateView(UpdateView):
         block_name = context['object'].basic_phrase
         context['title'] = f'Редактировать блок \"{block_name}\"'
         return context
+
+    def get_success_url(self):
+        return_to = self.request.POST.get('from_condition')
+        return reverse_lazy('phrase_cond_app:concrete_phrase_cond', kwargs={'pk': return_to})
+
+
+class PhraseBlockCreateView(CreateView):
+    model = PhraseBlock
+    template_name = 'phrase_cond_app/phrase_block_create.html'
+    fields = ('basic_phrase', 'phrases_parts', 'phrases_parts_exclude', 'phrases_exact', 'next_state')
+
+    def get_context_data(self, **kwargs):
+        context = super(PhraseBlockCreateView, self).get_context_data(**kwargs)
+        context['title'] = 'Создать блок с фразой'
+        from_condition = self.kwargs.get('pk')
+        context['from_condition'] = from_condition
+        return context
+
+    def form_valid(self, form):
+        phrase_condition = get_object_or_404(PhrasesCondition, id=self.kwargs['pk'])
+        form.instance.phrase_condition = phrase_condition
+        return super(PhraseBlockCreateView, self).form_valid(form)
 
     def get_success_url(self):
         return_to = self.request.POST.get('from_condition')

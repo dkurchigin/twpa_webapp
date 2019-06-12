@@ -18,6 +18,9 @@
         <h3>{{ condition.description }}</h3>
     </div>
     <div class="condition_tree">
+        <div class="create_phrase_block">
+            <a href="{% url 'phrase_cond_app:phrase_block_create' condition.pk %}">Создать блок</a>
+        </div>
         {% for object in object_list %}
             <div class="block_div">
                 <p>basic phrase: "{{ object.basic_phrase }}"</p>
