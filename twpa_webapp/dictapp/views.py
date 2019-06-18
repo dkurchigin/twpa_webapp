@@ -5,24 +5,6 @@ from .models import DictWithRules
 from django.urls import reverse_lazy
 
 
-class DictListView(ListView):
-    model = DictWithRules
-    template_name = 'dictapp/rule_list.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(DictListView, self).get_context_data(**kwargs)
-        context['title'] = "Состояния с фразами"
-
-        rule_number = self.kwargs.get('pk')
-        if rule_number:
-            concrete_rule = DictWithRules.objects.filter(pk=rule_number).first()
-        else:
-            concrete_rule = DictWithRules.objects.filter(pk=0).first()
-        context['concrete_rule'] = concrete_rule
-        print(context)
-        return context
-
-
 class DictListUpdateView(UpdateView):
     model = DictWithRules
     template_name = 'dictapp/rule_list.html'
@@ -40,7 +22,6 @@ class DictListUpdateView(UpdateView):
         else:
             concrete_rule = DictWithRules.objects.filter(pk=0).first()
         context['concrete_rule'] = concrete_rule
-        # print(context)
         return context
 
     def get_success_url(self):
