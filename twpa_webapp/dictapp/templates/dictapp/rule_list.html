@@ -16,15 +16,18 @@
 <body>
     <div class="container">
         <div class="left_menu">
-            {% for object in object_list %}
-                <div class="dict_name" style="border: 1px black;">
+            <h1>Список словарей</h1>
+            {% for object in all_rules %}
+                <div class="dict_name">
                     <a href="{% url 'dictapp:concrete_rule' object.pk %}">{{ object.name }}</a>
                 </div>
             {% endfor %}
         </div>
-        <div class="rule_content">
-            {{ concrete_rule.content }}
-        </div>
+        <form class="rule_content_update" method="post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input type="submit" value="Применить">
+        </form>
     </div>
     {% block js %}
     {% endblock %}

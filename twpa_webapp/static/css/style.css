@@ -18,3 +18,20 @@
 .dicts_inline {
     display: inline;
 }
+
+#id_content {
+    display: block;
+}
+
+.left_menu {
+    height: 100%; /* высота нашего блока */
+    width: 300px; /* ширина нашего блока */
+    overflow-y: auto;
+    overflow-x: auto;
+    float: left;
+}
+
+.dict_name {
+    border: 1px solid black;
+    margin-top: 3px;
+}
